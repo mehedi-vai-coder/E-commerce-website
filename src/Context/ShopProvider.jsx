@@ -3,9 +3,11 @@ import { ShopContext } from './ShopContext';
 import { products } from '../assets/assets';
 
 const ShopProvider = ({ children }) => {
+    const currency = '$';
+    const delivery_fee = 10;
 
     const shopInfo = {
-        products,
+        products, delivery_fee, currency
     }
     return (
         <ShopContext value={shopInfo}>
