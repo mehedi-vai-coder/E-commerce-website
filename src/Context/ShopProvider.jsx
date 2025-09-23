@@ -1,4 +1,4 @@
-import React, { Children, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { ShopContext } from './ShopContext';
 import { products } from '../assets/assets';
 import { toast } from 'react-toastify';
@@ -34,12 +34,25 @@ const ShopProvider = ({ children }) => {
         setCartItems(cartData)
     }
 
-    useEffect(() => {
-        console.log(cartItems);
-    }, [cartItems])
+    const getCartCount = () => {
+        let totalCount = 0;
+        for (const items in cartItems) {
+            for (const item in cartItems[items]) {
+                try {
+                    if (cartItems[items][item] > 0) {
+                        totalCount += cartItems[items][item];
+                    }
+                } catch (erros) {
+                    console.log(erros)
+                }
+            }
+        }
+        return totalCount;
+    }
 
     const shopInfo = {
         products, delivery_fee, currency, search, setSearch, showSearch, setShowSearch, cartItems, addToCart,
+        getCartCount
     }
     return (
         <ShopContext value={shopInfo}>
